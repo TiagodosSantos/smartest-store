@@ -18,11 +18,11 @@ public class Invoice {
 	private Integer id;
 	
 	//@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", locale = "pt_BR", timezone = "America/Sao_Paulo")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt_BR", timezone = "America/Sao_Paulo")
 	private Calendar competencyDate;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", locale = "pt_BR", timezone = "America/Sao_Paulo")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt_BR", timezone = "America/Sao_Paulo")
 	private Calendar dueDate;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", locale = "pt_BR", timezone = "America/Sao_Paulo")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt_BR", timezone = "America/Sao_Paulo")
     private Calendar payDate;
 
     @ManyToOne(optional=false, fetch=FetchType.EAGER)

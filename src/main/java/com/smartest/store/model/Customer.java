@@ -22,7 +22,7 @@ public class Customer {
 	@NotBlank
 	private String name;
 	//@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", locale = "pt_BR", timezone = "America/Sao_Paulo")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt_BR", timezone = "America/Sao_Paulo")
 	private Calendar birthDate;
 	//@NotBlank
 	private String gender;
