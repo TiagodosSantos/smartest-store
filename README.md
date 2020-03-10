@@ -36,6 +36,7 @@ http://localhost:8080/swagger-ui.html.
 
 #### Default (Use swagger for a better experience) 
 http://localhost:8080/invoice.
+
 http://localhost:8080/customer.
 
 You can also recreate the package as a single artifact by running the `mvn install`. Three tests will be executed throughout this process. After that the application can be started using:
