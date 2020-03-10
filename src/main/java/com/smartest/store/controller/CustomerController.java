@@ -115,7 +115,7 @@ public class CustomerController {
 	@ApiOperation(value = "Return a list with all customers of the database", response = Customer.class)
 	@ApiResponses({
 			@ApiResponse(code = 500, message = "Internal Server Error")})
-	@GetMapping(value = "/store/usuario", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/store/customer", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public List<Customer> findAll() {
 		

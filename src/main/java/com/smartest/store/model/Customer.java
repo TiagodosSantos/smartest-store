@@ -32,8 +32,6 @@ public class Customer {
 	private String mobileNumber;
 	
 	
-	@ManyToMany
-	private Set<Customer> amigos = new HashSet<Customer>();
 	
 	/**
 	 * @deprecated
@@ -103,17 +101,6 @@ public class Customer {
 		this.mobileNumber = mobileNumber;
 	}
 
-
-	public Set<Customer> getAmigos() {
-		return amigos;
-	}
-
-
-	public void setAmigos(Set<Customer> amigos) {
-		this.amigos = amigos;
-	}
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -143,11 +130,6 @@ public class Customer {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-
-
-	public void adicionaAmigo(Customer usuario) {
-		amigos.add(usuario);
 	}
 
 }
