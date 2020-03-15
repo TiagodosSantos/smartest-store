@@ -13,10 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.smartest.store.dao.CustomerDao;
-import com.smartest.store.dao.InvoiceDao;
 import com.smartest.store.model.Customer;
 import com.smartest.store.model.Invoice;
+import com.smartest.store.repository.CustomerRepository;
+import com.smartest.store.repository.InvoiceRepository;
 
 /**
  * 
@@ -34,9 +34,9 @@ public class ControllerTest {
 
 	
 	@MockBean
-    private CustomerDao customerDao;
+    private CustomerRepository customerDao;
 	@MockBean
-    private InvoiceDao invoiceDao;
+    private InvoiceRepository invoiceDao;
 	
 	
 	/**
@@ -49,7 +49,7 @@ public class ControllerTest {
 		
 		Customer test = new Customer("Tiago", "Tiago", "Tiago");
 		customerDao.save(test);
-        assertThat(test.equals(customerDao.findOne(1)));
+        assertThat(test.equals(customerDao.findById(1)));
         
         logger.info("END TEST:: whenFindingCustomerById");
     }
@@ -68,7 +68,7 @@ public class ControllerTest {
 		
 		Invoice invoiceTest = new Invoice(Calendar.getInstance(), customerTest);
 		invoiceDao.save(invoiceTest);
-        assertThat(invoiceTest.equals(invoiceDao.findOne(1)));
+        assertThat(invoiceTest.equals(invoiceDao.findById(1)));
         
         logger.info("END TEST:: whenFindingInvoiceById");
     }

@@ -18,12 +18,20 @@ public class ExceptionDetails {
 	private Calendar errorDate;
 	private String errorMessage;
 	private String requestedURI;
+	private String errorField;
 	
 	
 
 	public ExceptionDetails(String errorMessage, String requestedURI) {
 		this.errorDate = Calendar.getInstance();
 		this.errorMessage = errorMessage;
+		this.requestedURI = requestedURI;
+	}
+	
+	public ExceptionDetails(String errorMessage, String errorField, String requestedURI) {
+		this.errorDate = Calendar.getInstance();
+		this.errorMessage = errorMessage;
+		this.errorField = errorField;
 		this.requestedURI = requestedURI;
 	}
 
@@ -49,6 +57,14 @@ public class ExceptionDetails {
 	
 	public void setErrorDate(Calendar errorDate) {
 		this.errorDate = errorDate;
+	}
+	
+	public String getErrorField() {
+		return errorField;
+	}
+	
+	public void setErrorField(String errorField) {
+		this.errorField = errorField;
 	}
 	
 }

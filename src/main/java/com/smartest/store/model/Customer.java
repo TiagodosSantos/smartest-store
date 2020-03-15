@@ -1,28 +1,30 @@
 package com.smartest.store.model;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.smartest.store.utils.DateUtils;
 
 @Entity
 public class Customer {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private Integer id;
-	@NotBlank
+	@NotEmpty @Length(min = 2)
 	private String name;
 	//@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt_BR", timezone = "America/Sao_Paulo")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy"/*, locale = "pt-BR", timezone = "America/Sao_Paulo"*/)
 	private Calendar birthDate;
 	//@NotBlank
 	private String gender;
@@ -40,13 +42,24 @@ public class Customer {
 
 	}
 	
+	public Customer(Integer id) {
+		this.id = id;
+	}
 	
 	public Customer(String login, String gender,String telephoneNumber) {
 		this.name = login;
 		this.gender = gender;
 		this.telephoneNumber = telephoneNumber;
 	}
-
+	
+	public Customer(String name, Calendar birthDate, String gender, String telephoneNumber,
+			String mobileNumber) {
+		this.name = name;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.telephoneNumber = telephoneNumber;
+		this.mobileNumber = mobileNumber;
+	}
 
 	public Integer getId() {
 		return id;
@@ -110,7 +123,7 @@ public class Customer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -124,12 +137,19 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", birthDate=" + DateUtils.getInstance().dateToString(birthDate, null) + ", gender=" + gender
+				+ ", telephoneNumber=" + telephoneNumber + ", mobileNumber=" + mobileNumber + "]";
 	}
 
 }
