@@ -7,6 +7,14 @@ import com.smartest.store.model.Customer;
 import com.smartest.store.model.Invoice;
 import com.smartest.store.repository.InvoiceRepository;
 
+/**
+ * 
+ * Form that contains invoice data to create/update a new invoice in the database
+ * 
+ * @author Tiago Santos
+ * @since   2020-03-10
+ * 
+ */
 public class InvoiceForm {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy"/*, locale = "pt-BR", timezone = "America/Sao_Paulo"*/)

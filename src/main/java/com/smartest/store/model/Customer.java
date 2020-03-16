@@ -14,6 +14,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartest.store.utils.DateUtils;
 
+/**
+ * 
+ * Entity that represents a customer in the database
+ * 
+ * @author Tiago Santos
+ * @since   2020-03-10
+ * 
+ */
 @Entity
 public class Customer {
 	
@@ -23,14 +31,10 @@ public class Customer {
 	private Integer id;
 	@NotEmpty @Length(min = 2)
 	private String name;
-	//@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy"/*, locale = "pt-BR", timezone = "America/Sao_Paulo"*/)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Calendar birthDate;
-	//@NotBlank
 	private String gender;
-	//@NotBlank
 	private String telephoneNumber;
-	//@NotBlank
 	private String mobileNumber;
 	
 	

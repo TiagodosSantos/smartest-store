@@ -91,8 +91,8 @@ public class InvoiceController {
 	@ApiResponses({
 		@ApiResponse(code = 500, message = "Internal Server Error"),
 		@ApiResponse(code = 404, message = "Invoice not found")})
-	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path="/{customerName}")
-	public ResponseEntity<?> findByCustomerName(@PathVariable("customerName") String customerName) {
+	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path="/customerName")
+	public ResponseEntity<?> findByCustomerName(@RequestParam("customerName") String customerName) {
 		
 		logger.info("Start");
 
@@ -190,7 +190,7 @@ public class InvoiceController {
 		Invoice invoiceSaved = invoiceRepository.save(invoiceForm.convertToInvoice());	
 		logger.info("InvoiceSaved -> "+invoiceSaved);
 		
-		URI uri = uriBuilder.path("/customers/{id}").buildAndExpand(invoiceSaved.getId()).toUri();
+		URI uri = uriBuilder.path("/invoices/{id}").buildAndExpand(invoiceSaved.getId()).toUri();
 	    ResponseEntity<?> body = ResponseEntity.created(uri).body(invoiceSaved);
 		
 		logger.info("End");

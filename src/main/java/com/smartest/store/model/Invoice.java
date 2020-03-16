@@ -13,6 +13,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartest.store.utils.DateUtils;
 
+/**
+ * 
+ * Entity that represents an invoice in the database
+ * 
+ * @author Tiago Santos
+ * @since   2020-03-10
+ * 
+ */
+
 @Entity
 public class Invoice {
 	
@@ -20,7 +29,6 @@ public class Invoice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private Integer id;
-	//@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy"/*, locale = "pt-BR", timezone = "America/Sao_Paulo"*/)
 	private Calendar competencyDate;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy"/*, locale = "pt-BR", timezone = "America/Sao_Paulo"*/)

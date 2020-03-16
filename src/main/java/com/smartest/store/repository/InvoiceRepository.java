@@ -7,6 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.smartest.store.model.Invoice;
 
+
+/**
+ * 
+ * Repository responsible for managing invoice data on database
+ * 
+ * @author Tiago Santos
+ * @since   2020-03-10
+ * 
+ */
 //@Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
