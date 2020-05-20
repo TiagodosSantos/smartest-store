@@ -44,7 +44,6 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(value="Customers", tags = {"Operations to manipulate customers data"})
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/customers")
 public class CustomerController {
 	

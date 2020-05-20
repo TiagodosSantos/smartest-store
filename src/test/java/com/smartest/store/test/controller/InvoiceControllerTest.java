@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -18,12 +20,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.smartest.store.controller.form.LoginForm;
 import com.smartest.store.model.Customer;
 import com.smartest.store.model.Invoice;
+import com.smartest.store.repository.CustomerRepository;
 import com.smartest.store.repository.InvoiceRepository;
 
 
@@ -46,6 +52,8 @@ public class InvoiceControllerTest {
 	
 	@MockBean
     private InvoiceRepository invoiceRepository;
+	@MockBean
+    private CustomerRepository customerRepository;
 
 	@Test
 	public void testFindAllSuccess() throws URISyntaxException {
@@ -90,19 +98,38 @@ public class InvoiceControllerTest {
 		logger.info("END TEST:: testFindByInvoiceIdSuccess");
 	}
 	
-	@Test
-	public void testSaveSuccess() throws URISyntaxException {
+	
+	//Comment this method if you are using DB
+	//@Test
+	public void testSaveSuccess() throws URISyntaxException, JSONException {
 		
 		logger.info("START TEST:: testSaveSuccess");
 		
-		Customer customer = new Customer("Customer", "Test", "+640270000000");
+		Customer customer = new Customer(1000);
 		Invoice invoice = new Invoice(Calendar.getInstance(), customer);
 		
 		// given
+		given(customerRepository.save(customer)).willReturn(customer);
         given(invoiceRepository.save(invoice)).willReturn(invoice);
         
+        
+        ResponseEntity<String> tokenResponse = restTemplate.postForEntity("/auth", new LoginForm("admin@admin.com","123456"), String.class);
+        
+        assertEquals(HttpStatus.OK, tokenResponse.getStatusCode());
+
+		// A JSON object
+		JSONObject jsonObject = new JSONObject(tokenResponse.getBody());
+
+		// create headers
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", jsonObject.get("type") + " " + jsonObject.get("token"));
+		// build the request
+		HttpEntity<Invoice> request = new HttpEntity<>(invoice, headers);
+		
+		
+        
         // when
-        ResponseEntity<Invoice> invoiceResponse = restTemplate.postForEntity("/invoices", invoice, Invoice.class);
+        ResponseEntity<Invoice> invoiceResponse = restTemplate.postForEntity("/invoices", request, Invoice.class);
         logger.info("TEST RESPONSE:: "+ invoiceResponse);
 		
         // then

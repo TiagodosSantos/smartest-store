@@ -54,6 +54,18 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Spring boot starter security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		
 		<!-- Swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -72,6 +84,12 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+		
+		<!-- mysql database -->
+		<!--<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>-->
 
 		<!-- Jackson -->
 		<dependency>
@@ -100,6 +118,7 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
 		
 	</dependencies>
 

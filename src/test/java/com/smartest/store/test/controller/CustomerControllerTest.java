@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,10 +19,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.smartest.store.controller.form.LoginForm;
 import com.smartest.store.model.Customer;
 import com.smartest.store.repository.CustomerRepository;
 
@@ -88,23 +93,37 @@ public class CustomerControllerTest {
 	}
 	
 	@Test
-	public void testSaveSuccess() throws URISyntaxException {
+	public void testSaveSuccess() throws URISyntaxException, JSONException {
 		
 		logger.info("START TEST:: testSaveSuccess");
-		
 		Customer customer = new Customer("Customer", "Test", "+640270000000");
 		
-		// given
-        given(customerRepository.save(customer)).willReturn(customer);
-        
-        // when
-        ResponseEntity<Customer> customerResponse = restTemplate.postForEntity("/customers", customer, Customer.class);
-        logger.info("TEST RESPONSE:: "+ customerResponse);
+		// given 
+		given(customerRepository.save(customer)).willReturn(customer);
 		
-        // then
-		assertEquals(HttpStatus.CREATED.value(), customerResponse.getStatusCodeValue());
+		
+		ResponseEntity<String> tokenResponse = restTemplate.postForEntity("/auth", new LoginForm("admin@admin.com","123456"), String.class);
+        
+        assertEquals(HttpStatus.OK, tokenResponse.getStatusCode());
+
+		// A JSON object
+		JSONObject jsonObject = new JSONObject(tokenResponse.getBody());
+
+		// create headers
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", jsonObject.get("type") + " " + jsonObject.get("token"));
+		// build the request
+		HttpEntity<Customer> request = new HttpEntity<>(customer, headers);
+		
+		// when 
+		ResponseEntity<Customer> customerResponse = restTemplate.postForEntity("/customers", request, Customer.class);
+		logger.info("TEST RESPONSE:: "+ customerResponse);
+
+		// then 
+		assertEquals(HttpStatus.CREATED,  customerResponse.getStatusCode());
 		
 		logger.info("END TEST:: testSaveSuccess");
+		
 	}
 	
 }
