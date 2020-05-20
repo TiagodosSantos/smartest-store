@@ -32,12 +32,12 @@ $ java -jar smartest-store/smartest-store.jar
 The application will be accessible at the following address: 
 
 #### Swagger UI: 
-http://localhost:8080/swagger-ui.html.
+http://localhost:8080/store/swagger-ui.html.
 
 #### Default (Use swagger for a better experience) 
-http://localhost:8080/invoice.
+http://localhost:8080/store/invoices.
 
-http://localhost:8080/customer.
+http://localhost:8080/store/customers.
 
 You can also recreate the package as a single artifact by running the `mvn install`. Three tests will be executed throughout this process. After that the application can be started using:
 
